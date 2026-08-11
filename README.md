@@ -9,6 +9,7 @@
 
 
 ## 📌 项目简介
+
 在数据驱动的业务中，**数据质量**直接影响决策的准确性。本项目构建了一个**自动化数据质量监控平台**，能够：
 
 - 🔄 模拟生成用户行为日志（含异常注入）
@@ -42,43 +43,38 @@
 
 ### 数据处理流程
 
+```text
 用户行为日志（模拟生成）
-↓
-数据画像分析（空值率/均值/分布）
-↓
-异常检测（空值率/Z-score/数据量突降）
-↓
-AI 智能建议（DeepSeek 生成修复方案）
-↓
-告警推送（控制台 + HTML报告）
-↓
-质量报告 + 可视化看板
+        ↓
+    数据画像分析（空值率/均值/分布）
+        ↓
+    异常检测（空值率/Z-score/数据量突降）
+        ↓
+    AI 智能建议（DeepSeek 生成修复方案）
+        ↓
+    告警推送（控制台 + HTML报告）
+        ↓
+    质量报告 + 可视化看板
 
-
-### Web UI 交互流程
+###Web UI 交互流程
 数据上传（CSV）或生成示例数据
-↓
-点击「开始质量分析」
-↓
-自动执行：画像 → 检测 → AI → 告警 → 报告
-↓
-查看「质量报告」「异常告警」「可视化看板」
-
+        ↓
+    点击「开始质量分析」
+        ↓
+    自动执行：画像 → 检测 → AI → 告警 → 报告
+        ↓
+    查看「质量报告」「异常告警」「可视化看板」
 
 📸 实际运行效果
 终端运行
-bash
 python main.py --threshold 3.0
-数据画像摘要：
 
-text
+数据画像摘要：
 总行数: 70,000 | 总列数: 7 | 内存占用: 24.37 MB | 质量评分: 95.1/100
 存在缺失值的列: 2 列
    - user_id: 1,436 (2.05%)
    - product_id: 3,477 (4.97%)
 异常检测结果（阈值 3%）：
-
-text
 🔍 检测空值率异常（阈值: 3.0%）...
    ⚠️ 列 'product_id': 空值率 4.97% (超过阈值)
 
@@ -86,18 +82,13 @@ text
 发现 1 个异常项：
    1. [null_rate_anomaly] 列 'product_id' 空值率达到 4.97%，超过阈值 3.0%
       建议: 建议检查数据源，确认是否有字段缺失或采集逻辑变更
+
 Web UI 界面
-![Web UI 首页](docs/webui_home.png)
-
-![质量报告页](docs/webui_report.png)
-
-![异常告警页](docs/webui_alert.png)
-
+https://docs/webui_home.png
 支持数据上传、参数配置、一键运行和结果可视化展示。
 
 🚀 快速开始
 方式一：本地运行
-bash
 # 1. 克隆项目
 git clone https://github.com/Lisa-xia/user_behavior_quality_platform.git
 cd user_behavior_quality_platform
@@ -117,8 +108,8 @@ python main.py
 
 # 6. 自定义参数
 python main.py --days 14 --rows 20000 --threshold 5.0 --no-ai
+
 方式二：Web UI（推荐）
-bash
 # 启动 Web 界面
 streamlit run web/app.py
 浏览器自动打开 http://localhost:8501，在网页中：
@@ -138,8 +129,6 @@ streamlit run web/app.py
 --no-viz	禁用可视化图表	启用
 --output	输出目录路径	./output
 --log-level	日志级别（DEBUG/INFO/WARNING/ERROR）	INFO
-
-
 📊 核心功能详解
 🔍 数据画像分析
 自动统计数据集的基础信息：
@@ -189,9 +178,7 @@ Z-score 异常	识别偏离均值 3 倍标准差的极端值	数据录入错误�
 
 质量报告、异常告警、趋势图表实时展示
 
-## 📁 项目结构
-
-```
+📁 项目结构
 user_behavior_quality_platform/
 ├── data_generator/              # 数据模拟生成
 │   └── log_simulator.py
@@ -223,7 +210,6 @@ user_behavior_quality_platform/
 ├── requirements.txt
 ├── main.py                      # 命令行入口
 └── README.md                    # 项目说明
-```
 
 🎯 项目亮点
 ✅ 端到端自动化：python main.py 一键完成全流程
@@ -243,12 +229,12 @@ user_behavior_quality_platform/
 ✅ 容器化部署：Docker + Docker Compose 一键运行
 
 🧪 运行测试
-bash
 # 运行所有单元测试
 pytest tests/ -v
 
 # 生成覆盖率报告
 pytest tests/ --cov=quality_engine --cov-report=html
+
 🔮 后续规划
 □ 接入 Kafka 实时数据流，实现准实时监控
 □ 使用 Airflow 实现任务定时调度（已预留 DAG）
@@ -258,9 +244,13 @@ pytest tests/ --cov=quality_engine --cov-report=html
 □ 搭建 Grafana 可视化看板
 📌 数据来源
 本项目使用模拟数据，数据生成器会注入预设比例的异常，用于演示质量检测能力。
+
 异常注入比例：
+
 product_id 为空：5.0%
+
 user_id 为空：2.1%
+
 event_time 格式错误：2.9%
 
 👤 作者
