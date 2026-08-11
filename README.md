@@ -189,7 +189,9 @@ Z-score 异常	识别偏离均值 3 倍标准差的极端值	数据录入错误�
 
 质量报告、异常告警、趋势图表实时展示
 
-📁 项目结构
+## 📁 项目结构
+
+```
 user_behavior_quality_platform/
 ├── data_generator/              # 数据模拟生成
 │   └── log_simulator.py
@@ -209,7 +211,7 @@ user_behavior_quality_platform/
 │   └── app.py                   # Streamlit 应用
 ├── dags/                        # Airflow 调度（预留）
 │   └── quality_monitor_dag.py
-├── output/                      # 输出目录
+├── output/                      # 输出目录（自动生成）
 │   ├── quality_report.md
 │   ├── alert_report.html
 │   └── images/
@@ -220,7 +222,8 @@ user_behavior_quality_platform/
 ├── docker-compose.yml
 ├── requirements.txt
 ├── main.py                      # 命令行入口
-└── README.md
+└── README.md                    # 项目说明
+```
 
 🎯 项目亮点
 ✅ 端到端自动化：python main.py 一键完成全流程
